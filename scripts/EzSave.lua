@@ -10,8 +10,8 @@ local EzSave = {}
 
 --// Exploit Specific
 
-assert(syn or SENTINEL_V2, "EzSave | EzSave is Synapse X and Sentinel only")
-local makefolder = syn and makefolder or createdirectory
+assert(syn or SENTINEL_V2, "EzSave | EzSave is Synapse X, SirHurt, and Sentinel only")
+local makefolder = syn and makefolder or SENTINEL_V2 and createdirectory or makefolder
 
 --// Internals
 
@@ -124,6 +124,23 @@ function Decode(value)
 end
 
 --// Functions
+
+EzSave.ProjectExist = function(id)
+    assert(type(id)=="string","EzSave.ProjectExist | Expected string as argument #1")
+    return isfolder(id)
+end
+
+EzSave.StoreExist = function(project,store)
+    assert(type(project)=="string","EzSave.StoreExist | Expected string as argument #1")
+    assert(type(store)=="string","EzSave.StoreExist | Expected string as argument #2")
+    return isfolder(project.. "/".. store)
+end
+
+EzSave.IsSet = function(store,variablename)
+    assert(type(store)=="string","EzSave.IsSet | Expected string as argument #1")
+    assert(type(variablename)=="string","EzSave.IsSet | Expected string as argument #2")
+    return isfile(store.. "/".. variablename)
+end
 
 EzSave.NewProject = function(id)
     assert(type(id)=="string","EzSave.NewProject | Expected string as argument #1")
